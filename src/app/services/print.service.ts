@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BluetoothSerial } from '@awesome-cordova-plugins/bluetooth-serial/ngx';
 import ThermalPrinterEncoder from 'thermal-printer-encoder';
 import { Observable } from 'rxjs';
+import { CommonService } from './common.service';
 
 declare var navigator:any;
 
@@ -17,14 +18,22 @@ export class PrintService {
   
   imagePath = 'assets/images/icon.bmp';
 
-  constructor(private bluetoothSerial: BluetoothSerial) { }
+  constructor(private bluetoothSerial: BluetoothSerial, private common: CommonService) { }
 
   searchBT(): Promise<void> {
     return this.bluetoothSerial.list();
   }
 
+  isBTEnabled():Promise<any> {
+    return this.bluetoothSerial.isEnabled();
+  }
+
   enable():Promise<any> {
     return this.bluetoothSerial.enable();
+  }
+
+  async showBTSetting():Promise<any> {
+    return await this.bluetoothSerial.showBluetoothSettings();
   }
 
   discover():Promise<any> {
@@ -37,11 +46,11 @@ export class PrintService {
   }
 
   async printText(text: string, address:string): Promise<void> {
-    var name = 'Meticulous Triangle';
-    var storeAddr = 'Somewhere in Abeokuta';
+    var name = 'Avallix Test Print';
+    var storeAddr = 'Somewhere';
     let img:any = new Image();
     img.src = 'assets/images/icon.bmp';
-    var dateTime = '01/01/2024, 11:45 AM';
+    var dateTime = new Date();
     let result = this.encoder
                   .initialize()
                   .align('center')
@@ -55,16 +64,14 @@ export class PrintService {
                   .line(storeAddr) //Address of business
                   .newline()
                   .size('normal')
-                  .text('*************************')
-                  .newline()
+                  .line('*************************')
                   .size('normal')
                   .bold(true)
-                  .text('PURCHASE RECEIPT')
+                  .line('PURCHASE RECEIPT')
                   .bold(false)
                   .size('normal')
                   .line('Customer Copy')
-                  .newline()
-                  .text('*************************')
+                  .line('*************************')
                   .newline()
                   .align('left')
                   .text('Date/Time')
@@ -74,7 +81,7 @@ export class PrintService {
                   .align('left')
                   .text('WHID') //CASH REGISTER NAME
                   .align('right')
-                  .text('Abeokuta')
+                  .text('Somewhere')
                   .newline()
                   .align('left')
                   .text('RGN') //CASH REGISTER NAME
@@ -89,7 +96,11 @@ export class PrintService {
                   .align('center')
                   .text('*************************')
                   .newline()
-                  .qrcode('https://meticuloustriangle.com.ng')
+                  .align('center')
+                  .line(text)
+                  .align('center')
+                  .text('*************************')
+                  .qrcode('https://yoursite.com')
                   .cut('full');
 
     const data = result.encode();
@@ -99,15 +110,15 @@ export class PrintService {
   testPrint(address:any, text:string) {
     let connSub = this.connect(address).subscribe(data => {
       this.bluetoothSerial.write(text).then(response => {
-        alert('Printed successfully!');
+        this.common.toast('Printed successfully!','success');
         connSub.unsubscribe();
       },
       (err) => {
-        alert('Error printing text.');
+        this.common.toast('Error printing text: '+err?.message,'danger');
       });
       },
       (err) => {
-        alert('Error connecting to printer!');
+        this.common.toast('Error connecting to printer: '+err?.message,'danger');
       });
   }
 

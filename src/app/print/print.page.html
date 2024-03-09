@@ -1,0 +1,31 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Print Test</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Print Test</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-list [inset]="true">
+    <ion-item>
+      <ion-select label="Select Bluetooth" label-placement="stacked" interface="action-sheet" (ionChange)="connect($event)">
+        <!-- <ion-select-option value="BT1">BT1</ion-select-option> -->
+        <ion-select-option [value]="device.id" *ngFor="let device of discovered">{{device.name || 'Unnamed Device'}}</ion-select-option>
+      </ion-select>
+      <ion-buttons slot="end">
+        <ion-button (click)="discoverDevices()">
+          <ion-icon name="radio" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item>
+      <ion-textarea [(ngModel)]="content" label="Enter a sample test to print" label-placement="stacked" placeholder="Type something here"></ion-textarea>
+    </ion-item>
+  </ion-list>
+
+  <ion-button (click)="printTest()" class="m-2" expand="block" shape="round"><ion-icon name="print-outline" slot="start"></ion-icon> Test Print</ion-button>
+</ion-content>

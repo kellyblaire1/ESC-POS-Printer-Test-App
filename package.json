@@ -1,8 +1,8 @@
 {
-  "name": "pos",
+  "name": "ESC-POS Printer Tester",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Bloomnet",
+  "homepage": "https://bloomnet.com.ng/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

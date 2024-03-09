@@ -1,0 +1,44 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Bluetooth Devices</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Bluetooth Devices</ion-title>
+      <ion-buttons slot="end">
+        <ion-button>
+          <ion-icon slot="icon-only" name="plus-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="d-flex justify-content-between gap-1 m-2">
+    <ion-button (click)="listBluetoothDevices()" expand="block" shape="round">Paired Devices</ion-button>
+    <ion-button (click)="discoverDevices()" expand="block" shape="round" color="secondary">
+      <ion-icon name="bluetooth-outline"></ion-icon> Discover
+    </ion-button>
+  </div>
+
+  <ion-list [inset]="true" class="ion-margin-bottom">
+    <ion-list-header>
+      <ion-label>Paired Devices</ion-label>
+    </ion-list-header>
+    <ion-item lines="full" detail="true" button *ngFor="let device of devices;" (click)="connect(device.id)">
+      <ion-label>{{device.name || 'Unnamed Device'}}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  
+  <ion-list [inset]="true" class="ion-margin-bottom">
+    <ion-list-header>
+      <ion-label>Unpaired Devices</ion-label>
+    </ion-list-header>
+    <ion-item lines="full" detail="true" button *ngFor="let device of discovered;" (click)="connect(device.id)">
+      <ion-label>{{device.name || 'Unnamed Device'}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

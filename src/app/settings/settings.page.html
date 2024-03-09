@@ -1,0 +1,30 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Settings</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Settings</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list [inset]="true">
+    <ion-item lines="full">
+      <ion-toggle [enableOnOffLabels]="status" (ionChange)="changeStatus($event)">Enable Bluetooth</ion-toggle>
+    </ion-item>
+    <ion-item lines="full" button detail="true" (click)="settings()">
+      <ion-label>Show Bluetooth Settings</ion-label>
+    </ion-item>
+  </ion-list>
+  <div class="m-3 d-flex justify-content-between">
+    <span>
+      Connected MAC Address: 
+    </span>
+    <span class="ion-text-end">
+      {{macAddr}}
+    </span>
+  </div>
+</ion-content>

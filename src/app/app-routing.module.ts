@@ -12,13 +12,27 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'printer',
+    redirectTo: 'tabs',
     pathMatch: 'full'
   },
   {
     path: 'printer',
     loadChildren: () => import('./printer/printer.module').then( m => m.PrinterPageModule)
   },
+  {
+    path: 'tabs',
+    loadChildren: () => import('./tabs/tabs.module').then( m => m.TabsPageModule)
+  },  {
+    path: 'print',
+    loadChildren: () => import('./print/print.module').then( m => m.PrintPageModule)
+  },
+  {
+    path: 'devices',
+    loadChildren: () => import('./devices/devices.module').then( m => m.DevicesPageModule)
+  },
+
+
+
 ];
 
 @NgModule({

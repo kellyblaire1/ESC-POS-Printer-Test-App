@@ -1,8 +1,8 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Avallix POS Tester',
+  appId: 'ng.com.avax.esc-pos',
+  appName: 'ESC-POS Printer Tester',
   webDir: 'www',
   server: {
     androidScheme: 'https'
