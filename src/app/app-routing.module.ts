@@ -12,8 +12,12 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'printer',
     pathMatch: 'full'
+  },
+  {
+    path: 'printer',
+    loadChildren: () => import('./printer/printer.module').then( m => m.PrinterPageModule)
   },
 ];
 

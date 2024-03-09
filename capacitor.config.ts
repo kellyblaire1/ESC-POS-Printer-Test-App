@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.starter',
-  appName: 'pos',
+  appName: 'Avallix POS Tester',
   webDir: 'www',
   server: {
     androidScheme: 'https'

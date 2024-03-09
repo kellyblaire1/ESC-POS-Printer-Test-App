@@ -1,0 +1,50 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Printer</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" color="light" class="ion-padding">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Printer</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-item>
+    <ion-input [(ngModel)]="macAddr" label="Enter your Printer MAC Address" labelPlacement="stacked" placeholder="00:00:00:00:00"></ion-input>
+  </ion-item>
+  <hr>
+  <ion-button expand="block" (click)="printData()">Print</ion-button>
+  <ion-button expand="block" fill="outline" (click)="connect(macAddr)">Connect</ion-button>
+  <ion-button expand="block" fill="outline" color="success" (click)="printTest()">Test Print</ion-button>
+  <ion-button expand="block" color="success" (click)="enable()">Enable Bluetooth</ion-button>
+  {{isEnabled | json}}
+  <div class="ion-margin-bottom">
+    <ion-button expand="block" (click)="listBluetoothDevices()">List Devices</ion-button>
+    <ion-list [inset]="true" class="ion-margin-bottom">
+      <ion-list-header>
+        <ion-label>Paired Devices</ion-label>
+        <ion-button>See All</ion-button>
+      </ion-list-header>
+      <ion-item lines="none" button *ngFor="let device of devices;" (click)="connect(device.id)">
+        <ion-label>{{device.name || 'Unnamed Device'}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+  <hr>
+
+  <div>
+    <ion-button expand="block" (click)="discoverDevices()">Discover Devices</ion-button>
+    {{discovered | json}}
+    <ion-list [inset]="true" class="ion-margin-bottom">
+      <ion-list-header>
+        <ion-label>Discovered</ion-label>
+        <ion-button>See All</ion-button>
+      </ion-list-header>
+      <ion-item lines="none" button *ngFor="let device of discovered;" (click)="connect(device.id)">
+        <ion-label>{{device.name || 'Unnamed Device'}}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+</ion-content>
